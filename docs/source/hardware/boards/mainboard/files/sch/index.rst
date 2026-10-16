@@ -1,4 +1,4 @@
 SCH
 ===
 
-.. pdf-include:: ../../../../../../../../hardware/projects/mainboard/mainboard.pdf
+.. pdf-include:: ../../../../../_static/pdf/mainboard.pdf

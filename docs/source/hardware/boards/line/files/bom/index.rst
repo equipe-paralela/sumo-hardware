@@ -2,5 +2,5 @@ BOM
 ===
 
 .. csv-table::
-    :file: ../../../../../../../hardware/projects/line/line.csv
+    :file: ../../../../../../../kicad/projects/line/line.csv
     :header-rows: 1

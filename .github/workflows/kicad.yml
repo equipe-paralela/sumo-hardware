@@ -5,12 +5,12 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "hardware/**"
+      - "kicad/**"
       - ".github/workflows/kicad.yml"
   pull_request:
     branches: [ "main" ]
     paths:
-      - "hardware/**"
+      - "kicad/**"
       - ".github/workflows/kicad.yml"
 
 
@@ -40,12 +40,12 @@ jobs:
       - name: Verify Rules
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          schematic_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_sch"
-          pcb_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          schematic_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_sch"
+          pcb_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
 
-          footprint_libraries: "dolphin=hardware/library/footprints"
-          symbol_libraries: "dolphin=hardware/library/symbols/dolphin.kicad_sym"
+          footprint_libraries: "dolphin=kicad/library/footprints"
+          symbol_libraries: "dolphin=kicad/library/symbols/dolphin.kicad_sym"
 
           run_erc: true
           run_drc: true
@@ -67,47 +67,51 @@ jobs:
       - name: Export BOM CSV
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          schematic_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_sch"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          schematic_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_sch"
 
-          symbol_libraries: "dolphin=hardware/library/symbols/dolphin.kicad_sym"
+          symbol_libraries: "dolphin=kicad/library/symbols/dolphin.kicad_sym"
 
           schematic_output_bom_fields: "${DNP},${QUANTITY},Reference,Value,Footprint,Datasheet"
           schematic_output_bom_labels: "DNP,QTY,REF,value,footprint,datasheet"
-          schematic_output_bom_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.csv"
+          schematic_output_bom_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.csv"
           schematic_output_bom: true
 
       - name: Export SCH PDF
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          schematic_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_sch"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          schematic_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_sch"
 
-          symbol_libraries: "dolphin=hardware/library/symbols/dolphin.kicad_sym"
+          symbol_libraries: "dolphin=kicad/library/symbols/dolphin.kicad_sym"
 
-          schematic_output_pdf_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.pdf"
+          schematic_output_pdf_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.pdf"
           schematic_output_pdf: true
+
+      - name: Copy SCH PDF to docs
+        run: |
+          cp kicad/projects/${{ matrix.project }}/${{ matrix.project }}.pdf docs/source/_static/pdf/${{ matrix.project }}.pdf
 
       - name: Export PCB STEP
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          pcb_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          pcb_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
 
-          footprint_libraries: "dolphin=hardware/library/footprints"
+          footprint_libraries: "dolphin=kicad/library/footprints"
 
-          pcb_output_step_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.step"
+          pcb_output_step_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.step"
           pcb_output_step: true
 
       - name: Export PCB Image Top
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          pcb_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          pcb_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
 
-          footprint_libraries: "dolphin=hardware/library/footprints"
+          footprint_libraries: "dolphin=kicad/library/footprints"
 
-          pcb_output_image_file_name: "hardware/projects/${{ matrix.project }}/images/${{ matrix.project }}_top.png"
+          pcb_output_image_file_name: "kicad/projects/${{ matrix.project }}/images/${{ matrix.project }}_top.png"
           pcb_output_image_side: "top"
           pcb_output_image_background: "transparent"
           pcb_output_image_width: 1920
@@ -121,12 +125,12 @@ jobs:
       - name: Export PCB Image Bottom
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          pcb_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          pcb_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
 
-          footprint_libraries: "dolphin=hardware/library/footprints"
+          footprint_libraries: "dolphin=kicad/library/footprints"
 
-          pcb_output_image_file_name: "hardware/projects/${{ matrix.project }}/images/${{ matrix.project }}_bottom.png"
+          pcb_output_image_file_name: "kicad/projects/${{ matrix.project }}/images/${{ matrix.project }}_bottom.png"
           pcb_output_image_side: "bottom"
           pcb_output_image_background: "transparent"
           pcb_output_image_width: 1920
@@ -140,26 +144,27 @@ jobs:
       - name: Export Gerbers and Drill Files
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
-          project_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
-          pcb_file_name: "hardware/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
+          project_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pro"
+          pcb_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.kicad_pcb"
 
-          pcb_output_gerbers_and_drill_folder_name: "hardware/projects/${{ matrix.project }}/gerbers"
+          pcb_output_gerbers_and_drill_folder_name: "kicad/projects/${{ matrix.project }}/gerbers"
           pcb_output_gerbers_and_drill: true
 
       - name: Zip Gerbers and Drill Files
         run: |
-          sudo zip -j hardware/projects/${{ matrix.project }}/${{ matrix.project }}.zip hardware/projects/${{ matrix.project }}/gerbers/*
+          sudo zip -j kicad/projects/${{ matrix.project }}/${{ matrix.project }}.zip kicad/projects/${{ matrix.project }}/gerbers/*
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 #v7.0.2
         with:
           name: artifacts-${{ matrix.project }}
           path: |
-            **/hardware/projects/${{ matrix.project }}/${{ matrix.project }}.csv
-            **/hardware/projects/${{ matrix.project }}/${{ matrix.project }}.pdf
-            **/hardware/projects/${{ matrix.project }}/${{ matrix.project }}.step
-            **/hardware/projects/${{ matrix.project }}/${{ matrix.project }}.zip
-            **/hardware/projects/${{ matrix.project }}/images/*.png
+            **/docs/source/_static/pdf/${{ matrix.project }}.pdf
+            **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.csv
+            **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.pdf
+            **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.step
+            **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.zip
+            **/kicad/projects/${{ matrix.project }}/images/*.png
 
 
   auto-commit:
@@ -188,4 +193,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d #v7.2.0
         with:
           commit_message: "chore(ci): update generated KiCAD files [skip ci]"
-          file_pattern: 'hardware/**/*.csv hardware/**/*.pdf hardware/**/*.png hardware/**/*.step hardware/**/*.zip'
+          file_pattern: 'docs/source/_static/pdf/*.pdf kicad/**/*.csv kicad/**/*.pdf kicad/**/*.png kicad/**/*.step kicad/**/*.zip'

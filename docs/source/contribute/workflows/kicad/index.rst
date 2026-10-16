@@ -40,7 +40,7 @@ When It Does
     :start-after: name:
     :end-before: env:
 
-This workflow runs whenever a push or pull request to the main branch of the repository affects either the ``kicad.yml`` workflow file or any file the ``hardware/`` folder.
+This workflow runs whenever a push or pull request to the main branch of the repository affects either the ``kicad.yml`` workflow file or any file the ``kicad/`` folder.
 
 How to... Add Projects
 -----------------------
@@ -50,4 +50,4 @@ How to... Add Projects
     :start-after: verify-project:
     :end-before: steps:
 
-Whenever a new project is added to the repository ``hardware/projects/`` folder it **must** be included in the GitHub Actions strategy matrix project list to ensure it will be verified.
+Whenever a new project is added to the repository ``kicad/projects/`` folder it **must** be included in the GitHub Actions strategy matrix project list to ensure it will be verified.
