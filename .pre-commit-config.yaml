@@ -19,7 +19,7 @@ repos:
       (?x)^(
           .*\.cjs|
           .*\.json|
-          hardware/.*
+          kicad/.*
       )$
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -30,7 +30,7 @@ repos:
   - id: trailing-whitespace
     exclude: |
         (?x)^(
-            hardware/.*
+            kicad/.*
         )$
 
 - repo: https://github.com/python-jsonschema/check-jsonschema
