@@ -1,4 +1,4 @@
 SCH
 ===
 
-.. pdf-include:: ../../../../../../../../kicad/projects/mainboard/mainboard.pdf
+.. pdf-include:: ../../../../../_static/pdf/mainboard.pdf

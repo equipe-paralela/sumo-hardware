@@ -1,4 +1,4 @@
 SCH
 ===
 
-.. pdf-include:: ../../../../../../../../kicad/projects/encoder/encoder.pdf
+.. pdf-include:: ../../../../../_static/pdf/encoder.pdf
