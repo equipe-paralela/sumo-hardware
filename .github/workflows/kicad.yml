@@ -88,6 +88,10 @@ jobs:
           schematic_output_pdf_file_name: "kicad/projects/${{ matrix.project }}/${{ matrix.project }}.pdf"
           schematic_output_pdf: true
 
+      - name: Copy SCH PDF to docs
+        run: |
+          cp kicad/projects/${{ matrix.project }}/${{ matrix.project }}.pdf docs/source/_static/pdf/${{ matrix.project }}.pdf
+
       - name: Export PCB STEP
         uses: actions-for-kicad/kicad-actions@a9f126ff27df502685a1f0048f45b48e0dd04838 #v2.5-k10.0.5
         with:
@@ -155,6 +159,7 @@ jobs:
         with:
           name: artifacts-${{ matrix.project }}
           path: |
+            **/docs/source/_static/pdf/${{ matrix.project }}.pdf
             **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.csv
             **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.pdf
             **/kicad/projects/${{ matrix.project }}/${{ matrix.project }}.step
@@ -188,4 +193,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d #v7.2.0
         with:
           commit_message: "chore(ci): update generated KiCAD files [skip ci]"
-          file_pattern: 'kicad/**/*.csv kicad/**/*.pdf kicad/**/*.png kicad/**/*.step kicad/**/*.zip'
+          file_pattern: 'docs/source/_static/pdf/*.pdf kicad/**/*.csv kicad/**/*.pdf kicad/**/*.png kicad/**/*.step kicad/**/*.zip'
