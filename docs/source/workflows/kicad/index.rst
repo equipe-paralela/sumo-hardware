@@ -4,7 +4,7 @@ KiCAD
 .. dropdown:: Full Workflow
     :animate: fade-in-slide-down
 
-    .. literalinclude:: ../../../../../.github/workflows/kicad.yml
+    .. literalinclude:: ../../../../.github/workflows/kicad.yml
         :language: yaml
         :linenos:
 
@@ -35,7 +35,7 @@ The ``[skip ci]`` flag tells GitHub to skip most Continuous Integrations workflo
 When It Does
 ------------
 
-.. literalinclude:: ../../../../../.github/workflows/kicad.yml
+.. literalinclude:: ../../../../.github/workflows/kicad.yml
     :language: yaml
     :start-after: name:
     :end-before: env:
@@ -45,7 +45,7 @@ This workflow runs whenever a push or pull request to the main branch of the rep
 How to... Add Projects
 -----------------------
 
-.. literalinclude:: ../../../../../.github/workflows/kicad.yml
+.. literalinclude:: ../../../../.github/workflows/kicad.yml
     :language: yaml
     :start-after: verify-project:
     :end-before: steps:
