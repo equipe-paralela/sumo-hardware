@@ -2,16 +2,14 @@ name: KiCAD
 
 
 on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - "kicad/**"
-      - ".github/workflows/kicad.yml"
   pull_request:
     branches: [ "main" ]
     paths:
-      - "kicad/**"
       - ".github/workflows/kicad.yml"
+      - "kicad/**"
+    types:
+      - opened
+      - synchronize
 
 
 env:

@@ -1,9 +1,14 @@
 # Documentation
 
 _index.md
+
 env/
 docs/build/
 
+
+# Global
+
+temp/
 
 # Hardware KiCad.gitignore by https://gitignore.org
 
